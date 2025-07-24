@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { securityHeaders, corsConfig, auditMiddleware, errorHandler } from './middleware/security.js';
 import secureRoutes from './api/secureRoutes.js';
 import playgroundRoutes from './api/playgroundRoutes.js';
+import enterpriseRoutes from './api/enterpriseRoutes.js';
 import keyManagement from './services/keyManagement.js';
 import logger from './utils/logger.js';
 import metricsCollector, { metricsMiddleware } from './utils/metrics.js';
@@ -23,9 +24,11 @@ app.use(metricsMiddleware(metricsCollector));
 // API Routes
 app.use('/api/v1/secure', secureRoutes);
 app.use('/api/v1/playground', playgroundRoutes);
+app.use('/api/v1/enterprise', enterpriseRoutes);
 
-// Static files for playground
+// Static files for both playground and enterprise vault
 app.use('/playground', express.static('public'));
+app.use('/enterprise', express.static('public'));
 
 app.get('/health', (req, res) => {
   const healthReport = metricsCollector.generateHealthReport();
@@ -37,7 +40,14 @@ app.get('/health', (req, res) => {
       aiPlayground: 'ACTIVE',
       quantumEncryption: 'ENABLED',
       zkProofs: 'ENABLED',
-      realTimeBattles: 'ENABLED'
+      realTimeBattles: 'ENABLED',
+      enterpriseVault: 'ACTIVE',
+      governmentGrade: 'ENABLED',
+      zeroTrustAccess: 'ENABLED',
+      quantumResistant: 'ENABLED',
+      multiJurisdiction: 'ENABLED',
+      hsmIntegration: 'ENABLED',
+      immutableAudit: 'ENABLED'
     }
   });
 });

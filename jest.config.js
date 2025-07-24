@@ -1,6 +1,5 @@
 export default {
   testEnvironment: 'node',
-  preset: 'jest-environment-node',
   testMatch: [
     '**/tests/**/*.test.js'
   ],
