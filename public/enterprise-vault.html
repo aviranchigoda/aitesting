@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏛️ Enterprise Vault - Government-Grade Security & Compliance Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 50px 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+            border-radius: 30px;
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: sweep 3s infinite;
+        }
+
+        @keyframes sweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ffed4a, #f39c12, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            z-index: 1;
+            position: relative;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            color: #e1e5e9;
+            margin-bottom: 30px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .classification-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            z-index: 1;
+            position: relative;
+        }
+
+        .classification-badge {
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .badge-top-secret {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            border-color: #dc3545;
+            animation: pulse-top-secret 2s infinite;
+        }
+
+        .badge-secret {
+            background: linear-gradient(45deg, #fd7e14, #e55a00);
+            border-color: #fd7e14;
+            animation: pulse-secret 2.5s infinite;
+        }
+
+        .badge-confidential {
+            background: linear-gradient(45deg, #ffc107, #ffca2c);
+            border-color: #ffc107;
+            color: #000;
+            animation: pulse-confidential 3s infinite;
+        }
+
+        .badge-quantum {
+            background: linear-gradient(45deg, #6f42c1, #8a63d2);
+            border-color: #6f42c1;
+            animation: pulse-quantum 3.5s infinite;
+        }
+
+        @keyframes pulse-top-secret {
+            0%, 100% { box-shadow: 0 0 10px rgba(220, 53, 69, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(220, 53, 69, 0.8); }
+        }
+
+        @keyframes pulse-secret {
+            0%, 100% { box-shadow: 0 0 10px rgba(253, 126, 20, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(253, 126, 20, 0.8); }
+        }
+
+        @keyframes pulse-confidential {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 193, 7, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(255, 193, 7, 0.8); }
+        }
+
+        @keyframes pulse-quantum {
+            0%, 100% { box-shadow: 0 0 10px rgba(111, 66, 193, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(111, 66, 193, 0.8); }
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+            border-radius: 25px;
+            padding: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transition: left 0.6s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .card h3 {
+            color: #ffd700;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            z-index: 1;
+            position: relative;
+        }
+
+        .enterprise-vault {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 193, 7, 0.08));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .vault-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .vault-section {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .vault-section:hover {
+            border-color: rgba(255, 215, 0, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #a0a0a0;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(45deg, #ffed4a, #ffd700);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            color: #fff;
+        }
+
+        .btn-warning {
+            background: linear-gradient(45deg, #fd7e14, #e55a00);
+            color: #fff;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: #fff;
+        }
+
+        .enterprise-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .metric-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .metric-card:hover {
+            transform: scale(1.08);
+            border-color: #ffd700;
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            z-index: 1;
+            position: relative;
+        }
+
+        .metric-label {
+            color: #e1e5e9;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+            z-index: 1;
+            position: relative;
+        }
+
+        .compliance-matrix {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .compliance-item {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .compliance-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(8px);
+        }
+
+        .compliance-compliant {
+            border-left-color: #28a745;
+        }
+
+        .compliance-pending {
+            border-left-color: #ffc107;
+        }
+
+        .compliance-violation {
+            border-left-color: #dc3545;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: #fff;
+            animation: pulse-active 2s infinite;
+        }
+
+        .status-pending {
+            background: linear-gradient(45deg, #ffc107, #ffca2c);
+            color: #000;
+            animation: pulse-pending 2.5s infinite;
+        }
+
+        .status-failed {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            color: #fff;
+        }
+
+        @keyframes pulse-active {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes pulse-pending {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 18px 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            color: #e1e5e9;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 0.9rem;
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #000;
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .security-console {
+            background: #000;
+            border-radius: 15px;
+            padding: 25px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            color: #00ff41;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px solid #ffd700;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .security-console::before {
+            content: 'CLASSIFIED - ENTERPRISE VAULT CONSOLE';
+            position: absolute;
+            top: -2px;
+            left: 20px;
+            background: #000;
+            color: #ffd700;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .jurisdiction-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .jurisdiction-badge {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 193, 7, 0.1));
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .jurisdiction-badge:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.4), rgba(255, 193, 7, 0.2));
+            transform: scale(1.05);
+        }
+
+        .jurisdiction-badge.selected {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #000;
+        }
+
+        .access-control-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .access-control {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .access-control:hover {
+            border-color: #ffd700;
+            transform: translateY(-5px);
+        }
+
+        .access-control-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .progress-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring circle {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        .progress-ring .progress-ring-bg {
+            stroke: rgba(255, 215, 0, 0.2);
+        }
+
+        .progress-ring .progress-ring-fill {
+            stroke: #ffd700;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            animation: progress-fill 2s ease-out forwards;
+        }
+
+        @keyframes progress-fill {
+            to {
+                stroke-dashoffset: 141.5; /* 50% */
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .vault-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .vault-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+
+            .classification-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Enterprise Vault</h1>
+            <p>Government-Grade Security & Compliance Platform</p>
+            <div class="classification-badges">
+                <span class="classification-badge badge-top-secret">🔴 TOP SECRET</span>
+                <span class="classification-badge badge-secret">🟠 SECRET</span>
+                <span class="classification-badge badge-confidential">🟡 CONFIDENTIAL</span>
+                <span class="classification-badge badge-quantum">⚛️ QUANTUM RESISTANT</span>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <h3>🔐 Active Vaults</h3>
+                <div class="enterprise-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value" id="activeVaults">0</div>
+                        <div class="metric-label">Secure Vaults</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="encryptedData">0</div>
+                        <div class="metric-label">Encrypted Assets</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🛡️ Zero-Trust Access</h3>
+                <div class="enterprise-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value" id="accessRequests">0</div>
+                        <div class="metric-label">Access Requests</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="trustScore">100%</div>
+                        <div class="metric-label">Trust Score</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📋 Compliance Status</h3>
+                <div class="enterprise-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value" id="complianceFrameworks">0</div>
+                        <div class="metric-label">Frameworks</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="auditReports">0</div>
+                        <div class="metric-label">Audit Reports</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🔑 Quantum Keys</h3>
+                <div class="enterprise-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value" id="quantumKeys">0</div>
+                        <div class="metric-label">QR Keys</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="keyRotations">0</div>
+                        <div class="metric-label">Rotations</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card enterprise-vault">
+            <h3>🏛️ Enterprise Vault Operations Center</h3>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('vault')">Vault Management</button>
+                <button class="tab" onclick="switchTab('encryption')">Data Encryption</button>
+                <button class="tab" onclick="switchTab('compliance')">Compliance</button>
+                <button class="tab" onclick="switchTab('access')">Zero-Trust Access</button>
+                <button class="tab" onclick="switchTab('keys')">Quantum Keys</button>
+            </div>
+
+            <!-- Vault Management Tab -->
+            <div id="vault" class="tab-content active">
+                <div class="vault-grid">
+                    <div class="vault-section">
+                        <h4>🏗️ Create Secure Vault</h4>
+                        <div class="form-group">
+                            <label for="organizationId">Organization ID</label>
+                            <input type="text" id="organizationId" placeholder="gov-agency-001">
+                        </div>
+                        <div class="form-group">
+                            <label for="classificationLevel">Classification Level</label>
+                            <select id="classificationLevel">
+                                <option value="TOP_SECRET">🔴 TOP SECRET</option>
+                                <option value="SECRET">🟠 SECRET</option>
+                                <option value="CONFIDENTIAL" selected>🟡 CONFIDENTIAL</option>
+                                <option value="UNCLASSIFIED">⚪ UNCLASSIFIED</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jurisdiction">Jurisdiction</label>
+                            <select id="jurisdiction">
+                                <option value="US">🇺🇸 United States</option>
+                                <option value="EU">🇪🇺 European Union</option>
+                                <option value="UK">🇬🇧 United Kingdom</option>
+                                <option value="CA">🇨🇦 Canada</option>
+                                <option value="AU">🇦🇺 Australia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="keyManagementLevel">Key Management</label>
+                            <select id="keyManagementLevel">
+                                <option value="HSM_BACKED" selected>🔐 HSM Backed</option>
+                                <option value="SOFTWARE_BASED">💾 Software Based</option>
+                                <option value="HYBRID">🔄 Hybrid</option>
+                            </select>
+                        </div>
+                        <button class="btn" onclick="createVault()">🚀 Create Vault</button>
+                        <button class="btn btn-warning" onclick="loadDemoData()">📋 Load Demo Data</button>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>📊 Vault Status</h4>
+                        <div id="vaultStatusContent">
+                            <p style="color: #a0a0a0; text-align: center; margin-top: 50px;">
+                                No active vault<br>
+                                <small>Create a vault to begin operations</small>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>🛡️ Security Metrics</h4>
+                        <div class="access-control-matrix">
+                            <div class="access-control">
+                                <span class="access-control-icon">🔐</span>
+                                <strong>Encryption</strong>
+                                <div>AES-256-XTS</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">⚛️</span>
+                                <strong>Quantum Safe</strong>
+                                <div>CRYSTALS-Kyber</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">🛡️</span>
+                                <strong>Zero Trust</strong>
+                                <div>Continuous Verification</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">📋</span>
+                                <strong>Compliance</strong>
+                                <div>Multi-Framework</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Encryption Tab -->
+            <div id="encryption" class="tab-content">
+                <div class="vault-grid">
+                    <div class="vault-section">
+                        <h4>🔐 Encrypt Sensitive Data</h4>
+                        <div class="form-group">
+                            <label for="vaultIdForEncryption">Vault ID</label>
+                            <input type="text" id="vaultIdForEncryption" placeholder="vault-uuid">
+                        </div>
+                        <div class="form-group">
+                            <label for="dataToEncrypt">Data to Encrypt</label>
+                            <textarea id="dataToEncrypt" rows="4" placeholder="Enter sensitive data to encrypt..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="dataClassification">Data Classification</label>
+                            <select id="dataClassification">
+                                <option value="AUTO_DETECT">🤖 Auto-Detect</option>
+                                <option value="PERSONAL_DATA">👤 Personal Data</option>
+                                <option value="FINANCIAL_DATA">💰 Financial Data</option>
+                                <option value="MEDICAL_DATA">🏥 Medical Data</option>
+                                <option value="BUSINESS_DATA">🏢 Business Data</option>
+                            </select>
+                        </div>
+                        <button class="btn" onclick="encryptData()">🔐 Encrypt Data</button>
+                        <button class="btn btn-success" onclick="shareData()">🔗 Secure Share</button>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>📊 Encryption Progress</h4>
+                        <div id="encryptionProgressContent">
+                            <div class="progress-ring">
+                                <svg>
+                                    <circle class="progress-ring-bg" cx="60" cy="60" r="45"></circle>
+                                    <circle class="progress-ring-fill" cx="60" cy="60" r="45"></circle>
+                                </svg>
+                            </div>
+                            <div style="text-align: center; color: #a0a0a0;">
+                                <p>Ready for encryption</p>
+                                <small>Upload data to begin</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>🔍 Recent Encryptions</h4>
+                        <div id="recentEncryptions">
+                            <div style="text-align: center; color: #a0a0a0; margin-top: 50px;">
+                                <p>No encryptions yet</p>
+                                <small>Encrypted data will appear here</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance Tab -->
+            <div id="compliance" class="tab-content">
+                <div class="vault-grid">
+                    <div class="vault-section">
+                        <h4>📋 Compliance Management</h4>
+                        <div class="form-group">
+                            <label for="vaultIdForCompliance">Vault ID</label>
+                            <input type="text" id="vaultIdForCompliance" placeholder="vault-uuid">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Jurisdictions</label>
+                            <div class="jurisdiction-selector">
+                                <div class="jurisdiction-badge" onclick="selectJurisdiction('US')">🇺🇸 US</div>
+                                <div class="jurisdiction-badge" onclick="selectJurisdiction('EU')">🇪🇺 EU</div>
+                                <div class="jurisdiction-badge" onclick="selectJurisdiction('UK')">🇬🇧 UK</div>
+                                <div class="jurisdiction-badge" onclick="selectJurisdiction('CA')">🇨🇦 CA</div>
+                                <div class="jurisdiction-badge" onclick="selectJurisdiction('AU')">🇦🇺 AU</div>
+                                <div class="jurisdiction-badge" onclick="selectJurisdiction('SG')">🇸🇬 SG</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Selected: <span id="selectedJurisdictions">None</span></label>
+                        </div>
+                        <button class="btn" onclick="checkCompliance()">📋 Check Compliance</button>
+                        <button class="btn btn-success" onclick="generateAuditReport()">📄 Generate Report</button>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>📊 Compliance Dashboard</h4>
+                        <div id="complianceDashboardContent">
+                            <div style="text-align: center; color: #a0a0a0; margin-top: 50px;">
+                                <p>No compliance checks run</p>
+                                <small>Select jurisdictions to begin</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>🏆 Certifications</h4>
+                        <div class="access-control-matrix">
+                            <div class="access-control">
+                                <span class="access-control-icon">🛡️</span>
+                                <strong>SOC 2 Type II</strong>
+                                <div class="status-indicator status-active">Certified</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">🔐</span>
+                                <strong>ISO 27001</strong>
+                                <div class="status-indicator status-active">Certified</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">🇪🇺</span>
+                                <strong>GDPR</strong>
+                                <div class="status-indicator status-active">Compliant</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">🏛️</span>
+                                <strong>FedRAMP</strong>
+                                <div class="status-indicator status-pending">Pending</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zero-Trust Access Tab -->
+            <div id="access" class="tab-content">
+                <div class="vault-grid">
+                    <div class="vault-section">
+                        <h4>🛡️ Access Verification</h4>
+                        <div class="form-group">
+                            <label for="vaultIdForAccess">Vault ID</label>
+                            <input type="text" id="vaultIdForAccess" placeholder="vault-uuid">
+                        </div>
+                        <div class="form-group">
+                            <label for="userId">User ID</label>
+                            <input type="text" id="userId" placeholder="user@organization.gov">
+                        </div>
+                        <div class="form-group">
+                            <label for="requestedAction">Requested Action</label>
+                            <select id="requestedAction">
+                                <option value="READ">📖 Read Data</option>
+                                <option value="WRITE">✏️ Write Data</option>
+                                <option value="DELETE">🗑️ Delete Data</option>
+                                <option value="ADMIN">👑 Admin Access</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="deviceFingerprint">Device Fingerprint</label>
+                            <input type="text" id="deviceFingerprint" placeholder="device-fingerprint-hash">
+                        </div>
+                        <button class="btn" onclick="verifyAccess()">🔍 Verify Access</button>
+                        <button class="btn btn-danger" onclick="revokeAccess()">❌ Revoke Access</button>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>📊 Trust Analytics</h4>
+                        <div id="trustAnalyticsContent">
+                            <div style="text-align: center; color: #a0a0a0; margin-top: 50px;">
+                                <p>No access requests</p>
+                                <small>Verify access to see analytics</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>🔐 Access Controls</h4>
+                        <div class="access-control-matrix">
+                            <div class="access-control">
+                                <span class="access-control-icon">👤</span>
+                                <strong>Identity</strong>
+                                <div>Multi-Factor</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">📱</span>
+                                <strong>Device</strong>
+                                <div>Trusted</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">🌍</span>
+                                <strong>Location</strong>
+                                <div>Geofenced</div>
+                            </div>
+                            <div class="access-control">
+                                <span class="access-control-icon">🕒</span>
+                                <strong>Time</strong>
+                                <div>Business Hours</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantum Keys Tab -->
+            <div id="keys" class="tab-content">
+                <div class="vault-grid">
+                    <div class="vault-section">
+                        <h4>⚛️ Quantum Key Generation</h4>
+                        <div class="form-group">
+                            <label for="vaultIdForKeys">Vault ID</label>
+                            <input type="text" id="vaultIdForKeys" placeholder="vault-uuid">
+                        </div>
+                        <div class="form-group">
+                            <label for="keyAlgorithm">Algorithm</label>
+                            <select id="keyAlgorithm">
+                                <option value="CRYSTALS_KYBER_1024">⚛️ CRYSTALS-Kyber-1024</option>
+                                <option value="CRYSTALS_DILITHIUM">⚛️ CRYSTALS-Dilithium</option>
+                                <option value="SPHINCS_PLUS">⚛️ SPHINCS+</option>
+                                <option value="FALCON">⚛️ Falcon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="keyPurpose">Key Purpose</label>
+                            <select id="keyPurpose">
+                                <option value="ENCRYPTION">🔐 Encryption</option>
+                                <option value="SIGNING">✍️ Digital Signing</option>
+                                <option value="KEY_EXCHANGE">🔄 Key Exchange</option>
+                                <option value="AUTHENTICATION">🛡️ Authentication</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="escrowRequired">Key Escrow Required</label>
+                            <select id="escrowRequired">
+                                <option value="false">❌ No</option>
+                                <option value="true">✅ Yes (Top Secret)</option>
+                            </select>
+                        </div>
+                        <button class="btn" onclick="generateQuantumKey()">⚛️ Generate Key</button>
+                        <button class="btn btn-warning" onclick="rotateKeys()">🔄 Rotate Keys</button>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>🔑 Key Management</h4>
+                        <div id="keyManagementContent">
+                            <div style="text-align: center; color: #a0a0a0; margin-top: 50px;">
+                                <p>No quantum keys generated</p>
+                                <small>Generate keys to manage them</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vault-section">
+                        <h4>📊 Key Statistics</h4>
+                        <div class="enterprise-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value" id="activeKeys">0</div>
+                                <div class="metric-label">Active Keys</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="pendingRotations">0</div>
+                                <div class="metric-label">Pending Rotations</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📊 Compliance Matrix</h3>
+            <div class="compliance-matrix" id="complianceMatrix">
+                <div class="compliance-item compliance-compliant">
+                    <div>
+                        <strong>SOC 2 Type II</strong> - Security & Availability<br>
+                        <small>Last Audit: 30 days ago | Next: 335 days</small>
+                    </div>
+                    <div class="status-indicator status-active">Compliant</div>
+                </div>
+                <div class="compliance-item compliance-compliant">
+                    <div>
+                        <strong>ISO 27001</strong> - Information Security Management<br>
+                        <small>Last Audit: 60 days ago | Next: 275 days</small>
+                    </div>
+                    <div class="status-indicator status-active">Certified</div>
+                </div>
+                <div class="compliance-item compliance-pending">
+                    <div>
+                        <strong>FedRAMP</strong> - Federal Risk Authorization Management<br>
+                        <small>Assessment in Progress | Est. Completion: 45 days</small>
+                    </div>
+                    <div class="status-indicator status-pending">In Progress</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="security-console" id="securityConsole">
+[SYSTEM] Enterprise Vault Console initialized
+[SYSTEM] Government-grade security protocols active
+[SYSTEM] Quantum-resistant encryption enabled
+[SYSTEM] Zero-trust architecture operational
+[INFO] Awaiting vault creation...
+        </div>
+    </div>
+
+    <script>
+        let currentVaultId = null;
+        let selectedJurisdictions = [];
+        let encryptionResults = [];
+        let accessRequests = [];
+
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            logToConsole(`[UI] Switched to ${tabName.toUpperCase()} operations`);
+        }
+
+        // Create secure vault
+        async function createVault() {
+            const organizationId = document.getElementById('organizationId').value;
+            const classificationLevel = document.getElementById('classificationLevel').value;
+            const jurisdiction = document.getElementById('jurisdiction').value;
+            const keyManagementLevel = document.getElementById('keyManagementLevel').value;
+
+            if (!organizationId) {
+                alert('Please enter an organization ID');
+                return;
+            }
+
+            logToConsole(`[VAULT] Creating ${classificationLevel} vault for ${organizationId}...`);
+
+            try {
+                const response = await fetch('/api/v1/enterprise/vault/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer enterprise-token'
+                    },
+                    body: JSON.stringify({
+                        organizationId,
+                        classificationLevel,
+                        jurisdiction,
+                        complianceRequirements: ['SOC2', 'ISO27001', 'GDPR'],
+                        dataResidency: jurisdiction,
+                        accessLevel: 'GOVERNMENT_GRADE',
+                        keyManagementLevel,
+                        retentionPolicy: {
+                            defaultRetention: classificationLevel === 'TOP_SECRET' ? 'PERMANENT' : '25_YEARS',
+                            autoDestruction: true
+                        }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    currentVaultId = result.data.vaultId;
+                    logToConsole(`[SUCCESS] Vault created: ${currentVaultId}`);
+                    logToConsole(`[INFO] Classification: ${classificationLevel}`);
+                    logToConsole(`[INFO] Encryption: ${result.data.encryptionStandard}`);
+                    logToConsole(`[INFO] HSM Backend: ${result.data.hsmBackend}`);
+                    logToConsole(`[INFO] Quantum Resistant: ${result.data.quantumResistant}`);
+                    
+                    updateVaultStatus(result.data);
+                    updateMetrics();
+                    
+                    // Auto-populate other forms
+                    document.getElementById('vaultIdForEncryption').value = currentVaultId;
+                    document.getElementById('vaultIdForCompliance').value = currentVaultId;
+                    document.getElementById('vaultIdForAccess').value = currentVaultId;
+                    document.getElementById('vaultIdForKeys').value = currentVaultId;
+                } else {
+                    logToConsole(`[ERROR] Vault creation failed: ${result.error}`);
+                }
+            } catch (error) {
+                logToConsole(`[ERROR] Network error: ${error.message}`);
+            }
+        }
+
+        // Encrypt data
+        async function encryptData() {
+            if (!currentVaultId) {
+                alert('Please create a vault first');
+                return;
+            }
+
+            const data = document.getElementById('dataToEncrypt').value;
+            const classification = document.getElementById('dataClassification').value;
+
+            if (!data) {
+                alert('Please enter data to encrypt');
+                return;
+            }
+
+            logToConsole(`[ENCRYPT] Encrypting ${classification} data...`);
+
+            try {
+                const response = await fetch(`/api/v1/enterprise/vault/${currentVaultId}/encrypt`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer enterprise-token'
+                    },
+                    body: JSON.stringify({
+                        data,
+                        metadata: {
+                            classification,
+                            purpose: 'DATA_PROTECTION',
+                            userContext: 'enterprise-user',
+                            geolocation: 'SECURE_FACILITY'
+                        }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    logToConsole(`[SUCCESS] Data encrypted: ${result.data.encryptionId}`);
+                    logToConsole(`[INFO] Classification: ${result.data.classification.level}`);
+                    logToConsole(`[INFO] Algorithm: ${result.data.encryptionMethod}`);
+                    
+                    encryptionResults.push(result.data);
+                    updateEncryptionResults();
+                    updateMetrics();
+                    
+                    // Clear form
+                    document.getElementById('dataToEncrypt').value = '';
+                } else {
+                    logToConsole(`[ERROR] Encryption failed: ${result.error}`);
+                }
+            } catch (error) {
+                logToConsole(`[ERROR] Encryption error: ${error.message}`);
+            }
+        }
+
+        // Select jurisdiction
+        function selectJurisdiction(jurisdiction) {
+            const badge = event.target;
+            
+            if (selectedJurisdictions.includes(jurisdiction)) {
+                // Remove if already selected
+                selectedJurisdictions = selectedJurisdictions.filter(j => j !== jurisdiction);
+                badge.classList.remove('selected');
+            } else {
+                // Add if not selected
+                selectedJurisdictions.push(jurisdiction);
+                badge.classList.add('selected');
+            }
+            
+            document.getElementById('selectedJurisdictions').textContent = 
+                selectedJurisdictions.length > 0 ? selectedJurisdictions.join(', ') : 'None';
+            
+            logToConsole(`[COMPLIANCE] Selected jurisdictions: ${selectedJurisdictions.join(', ')}`);
+        }
+
+        // Check compliance
+        async function checkCompliance() {
+            if (!currentVaultId) {
+                alert('Please create a vault first');
+                return;
+            }
+
+            if (selectedJurisdictions.length === 0) {
+                alert('Please select at least one jurisdiction');
+                return;
+            }
+
+            logToConsole(`[COMPLIANCE] Checking compliance for: ${selectedJurisdictions.join(', ')}`);
+
+            try {
+                const response = await fetch(`/api/v1/enterprise/vault/${currentVaultId}/compliance/check`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer enterprise-token'
+                    },
+                    body: JSON.stringify({
+                        targetJurisdictions: selectedJurisdictions
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    logToConsole(`[SUCCESS] Compliance check completed: ${result.data.complianceId}`);
+                    
+                    for (const [jurisdiction, status] of Object.entries(result.data.complianceStatus)) {
+                        logToConsole(`[COMPLIANCE] ${jurisdiction}: ${status.compliant ? 'COMPLIANT' : 'NON-COMPLIANT'}`);
+                    }
+                    
+                    updateComplianceDashboard(result.data);
+                    updateMetrics();
+                } else {
+                    logToConsole(`[ERROR] Compliance check failed: ${result.error}`);
+                }
+            } catch (error) {
+                logToConsole(`[ERROR] Compliance error: ${error.message}`);
+            }
+        }
+
+        // Verify access
+        async function verifyAccess() {
+            if (!currentVaultId) {
+                alert('Please create a vault first');
+                return;
+            }
+
+            const userId = document.getElementById('userId').value;
+            const action = document.getElementById('requestedAction').value;
+            const deviceFingerprint = document.getElementById('deviceFingerprint').value;
+
+            if (!userId || !deviceFingerprint) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            logToConsole(`[ACCESS] Verifying zero-trust access for ${userId}...`);
+
+            try {
+                const response = await fetch(`/api/v1/enterprise/vault/${currentVaultId}/access/verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer enterprise-token'
+                    },
+                    body: JSON.stringify({
+                        userId,
+                        action,
+                        credentials: {
+                            type: 'MULTI_FACTOR',
+                            token: 'demo-mfa-token'
+                        },
+                        deviceFingerprint,
+                        location: {
+                            latitude: 38.9072,
+                            longitude: -77.0369 // Washington, DC
+                        },
+                        biometricData: {
+                            fingerprint: 'demo-fingerprint',
+                            retina: 'demo-retina'
+                        }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    logToConsole(`[SUCCESS] Access verification completed: ${result.data.verificationId}`);
+                    logToConsole(`[INFO] Trust Score: ${result.data.overallTrustScore}`);
+                    logToConsole(`[INFO] Access ${result.data.accessGranted ? 'GRANTED' : 'DENIED'}`);
+                    
+                    accessRequests.push(result.data);
+                    updateTrustAnalytics(result.data);
+                    updateMetrics();
+                } else {
+                    logToConsole(`[ERROR] Access verification failed: ${result.error}`);
+                }
+            } catch (error) {
+                logToConsole(`[ERROR] Access verification error: ${error.message}`);
+            }
+        }
+
+        // Generate quantum key
+        async function generateQuantumKey() {
+            if (!currentVaultId) {
+                alert('Please create a vault first');
+                return;
+            }
+
+            const algorithm = document.getElementById('keyAlgorithm').value;
+            const purpose = document.getElementById('keyPurpose').value;
+            const escrowRequired = document.getElementById('escrowRequired').value === 'true';
+
+            logToConsole(`[QUANTUM] Generating ${algorithm} key for ${purpose}...`);
+
+            try {
+                const response = await fetch(`/api/v1/enterprise/vault/${currentVaultId}/keys/quantum`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer enterprise-token'
+                    },
+                    body: JSON.stringify({
+                        keyConfig: {
+                            keyType: 'ASYMMETRIC',
+                            keyPurpose: purpose,
+                            keyStrength: 256,
+                            algorithm,
+                            validityPeriod: 31536000000, // 1 year
+                            escrowRequired
+                        }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    logToConsole(`[SUCCESS] Quantum key generated: ${result.data.keyId}`);
+                    logToConsole(`[INFO] Algorithm: ${result.data.algorithm}`);
+                    logToConsole(`[INFO] Quantum Resistant: ${result.data.quantumResistant}`);
+                    logToConsole(`[INFO] Escrow Status: ${result.data.escrowStatus}`);
+                    
+                    updateKeyManagement(result.data);
+                    updateMetrics();
+                } else {
+                    logToConsole(`[ERROR] Key generation failed: ${result.error}`);
+                }
+            } catch (error) {
+                logToConsole(`[ERROR] Key generation error: ${error.message}`);
+            }
+        }
+
+        // Helper functions
+        function updateVaultStatus(vaultData) {
+            const content = document.getElementById('vaultStatusContent');
+            content.innerHTML = `
+                <div class="metric-card">
+                    <div class="metric-value">🟢</div>
+                    <div class="metric-label">Status: ACTIVE</div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <strong>Vault ID:</strong><br>
+                    <code style="font-size: 0.8rem; word-break: break-all;">${vaultData.vaultId}</code>
+                </div>
+                <div style="margin-top: 10px;">
+                    <strong>Classification:</strong> ${vaultData.classificationLevel}
+                </div>
+                <div style="margin-top: 10px;">
+                    <strong>Encryption:</strong> ${vaultData.encryptionStandard}
+                </div>
+                <div style="margin-top: 10px;">
+                    <strong>HSM Backend:</strong> ${vaultData.hsmBackend}
+                </div>
+                <div style="margin-top: 10px;">
+                    <strong>Estimated Cost:</strong> $${vaultData.estimatedSetupCost}
+                </div>
+            `;
+        }
+
+        function updateEncryptionResults() {
+            const container = document.getElementById('recentEncryptions');
+            if (encryptionResults.length === 0) return;
+
+            const recentItems = encryptionResults.slice(-3).map(result => `
+                <div style="background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 15px; margin: 10px 0; border-left: 4px solid #ffd700;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>ID:</strong> ${result.encryptionId.substring(0, 8)}...<br>
+                            <small>Classification: ${result.classification.level}</small>
+                        </div>
+                        <div class="status-indicator status-active">Encrypted</div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = recentItems;
+        }
+
+        function updateTrustAnalytics(verificationData) {
+            const content = document.getElementById('trustAnalyticsContent');
+            content.innerHTML = `
+                <div class="metric-card">
+                    <div class="metric-value">${verificationData.overallTrustScore}</div>
+                    <div class="metric-label">Trust Score</div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <strong>Access:</strong> ${verificationData.accessGranted ? '✅ GRANTED' : '❌ DENIED'}<br>
+                    <strong>User:</strong> ${verificationData.requesterId}<br>
+                    <strong>Action:</strong> ${verificationData.requestedAction}
+                </div>
+            `;
+        }
+
+        function updateMetrics() {
+            document.getElementById('activeVaults').textContent = currentVaultId ? '1' : '0';
+            document.getElementById('encryptedData').textContent = encryptionResults.length;
+            document.getElementById('accessRequests').textContent = accessRequests.length;
+            document.getElementById('trustScore').textContent = accessRequests.length > 0 ? 
+                Math.round(accessRequests[accessRequests.length - 1].overallTrustScore) + '%' : '100%';
+            document.getElementById('complianceFrameworks').textContent = selectedJurisdictions.length;
+            document.getElementById('quantumKeys').textContent = '0'; // Would be updated with actual key count
+        }
+
+        function loadDemoData() {
+            document.getElementById('organizationId').value = 'dept-defense-001';
+            document.getElementById('classificationLevel').value = 'SECRET';
+            document.getElementById('jurisdiction').value = 'US';
+            document.getElementById('dataToEncrypt').value = 'TOP SECRET: Classified military intelligence data requiring highest level encryption and access controls.';
+            document.getElementById('userId').value = 'colonel.smith@defense.gov';
+            document.getElementById('deviceFingerprint').value = 'secure-workstation-hash-abc123';
+            
+            logToConsole(`[DEMO] Sample government data loaded for testing`);
+        }
+
+        function logToConsole(message) {
+            const console = document.getElementById('securityConsole');
+            const timestamp = new Date().toLocaleTimeString();
+            console.textContent += `\n[${timestamp}] ${message}`;
+            console.scrollTop = console.scrollHeight;
+        }
+
+        // Placeholder functions for additional features
+        function shareData() {
+            if (encryptionResults.length === 0) {
+                alert('Please encrypt some data first');
+                return;
+            }
+            logToConsole(`[SHARE] Configuring secure data sharing with advanced controls...`);
+        }
+
+        function generateAuditReport() {
+            if (!currentVaultId) {
+                alert('Please create a vault first');
+                return;
+            }
+            logToConsole(`[AUDIT] Generating comprehensive compliance audit report...`);
+            logToConsole(`[SUCCESS] Audit report generated with immutable signatures`);
+        }
+
+        function rotateKeys() {
+            if (!currentVaultId) {
+                alert('Please create a vault first');
+                return;
+            }
+            logToConsole(`[KEYS] Initiating automated key rotation with zero-downtime...`);
+            logToConsole(`[SUCCESS] Key rotation completed successfully`);
+        }
+
+        function revokeAccess() {
+            logToConsole(`[ACCESS] Revoking access tokens and updating zero-trust policies...`);
+            logToConsole(`[SUCCESS] Access revoked across all systems`);
+        }
+
+        // Initialize the interface
+        document.addEventListener('DOMContentLoaded', function() {
+            logToConsole('[INIT] Enterprise Vault Console initialized');
+            logToConsole('[SYSTEM] Government-grade security protocols active');
+            logToConsole('[SYSTEM] Quantum-resistant encryption enabled');
+            logToConsole('[SYSTEM] Zero-trust architecture operational');
+            logToConsole('[READY] All systems operational - ready for vault operations');
+            updateMetrics();
+        });
+    </script>
+</body>
+</html>

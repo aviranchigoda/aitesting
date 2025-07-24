@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { securityHeaders, corsConfig, auditMiddleware, errorHandler } from './middleware/security.js';
 import secureRoutes from './api/secureRoutes.js';
+import enterpriseRoutes from './api/enterpriseRoutes.js';
 import keyManagement from './services/keyManagement.js';
 import logger from './utils/logger.js';
 import metricsCollector, { metricsMiddleware } from './utils/metrics.js';
@@ -19,14 +20,28 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(auditMiddleware);
 app.use(metricsMiddleware(metricsCollector));
 
+// API Routes
 app.use('/api/v1/secure', secureRoutes);
+app.use('/api/v1/enterprise', enterpriseRoutes);
+
+// Static files for enterprise vault
+app.use('/enterprise', express.static('public'));
 
 app.get('/health', (req, res) => {
   const healthReport = metricsCollector.generateHealthReport();
   res.status(healthReport.status === 'healthy' ? 200 : 503).json({
     ...healthReport,
     service: 'SecureAI Bridge',
-    version: '1.0.0'
+    version: '1.0.0',
+    features: {
+      enterpriseVault: 'ACTIVE',
+      governmentGrade: 'ENABLED',
+      zeroTrustAccess: 'ENABLED',
+      quantumResistant: 'ENABLED',
+      multiJurisdiction: 'ENABLED',
+      hsmIntegration: 'ENABLED',
+      immutableAudit: 'ENABLED'
+    }
   });
 });
 
