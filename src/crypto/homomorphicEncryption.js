@@ -1,4 +1,6 @@
 import forge from 'node-forge';
+import logger from '../utils/logger';
+import crypto from 'crypto';
 
 export class HomomorphicEncryption {
   constructor() {
@@ -129,6 +131,75 @@ export class HomomorphicEncryption {
       }
     } catch (error) {
       throw new Error(`Computation on encrypted data failed: ${error.message}`);
+    }
+  }
+
+  // New methods for AI Battle Arena
+  async encryptDataset(dataset) {
+    try {
+      logger.info('Encrypting dataset for AI battle arena');
+      
+      const encryptedDataset = {
+        id: crypto.randomUUID(),
+        type: dataset.type || 'generic',
+        encryptedData: [],
+        metadata: {
+          originalSize: dataset.size || 1000,
+          encryptionTimestamp: Date.now(),
+          algorithm: 'PAILLIER_HOMOMORPHIC'
+        }
+      };
+      
+      // Simulate encrypting each data point
+      for (let i = 0; i < (dataset.size || 1000); i++) {
+        const encryptedPoint = this.encrypt(Math.random() * 100);
+        encryptedDataset.encryptedData.push(encryptedPoint);
+      }
+      
+      logger.info(`Dataset encrypted: ${encryptedDataset.id}`);
+      return encryptedDataset;
+      
+    } catch (error) {
+      logger.error(`Dataset encryption failed: ${error.message}`);
+      throw new Error(`Dataset encryption failed: ${error.message}`);
+    }
+  }
+
+  async performInference(encryptedDataset, modelWeights) {
+    try {
+      logger.info('Performing homomorphic inference on encrypted dataset');
+      
+      const predictions = [];
+      const weights = modelWeights === 'ENCRYPTED_WEIGHTS' ? 
+        [0.3, 0.4, 0.3] : // Default weights
+        modelWeights;
+      
+      // Simulate inference on encrypted data
+      for (let i = 0; i < Math.min(encryptedDataset.encryptedData.length, 100); i++) {
+        const encryptedInput = encryptedDataset.encryptedData[i];
+        
+        // Homomorphic computation: prediction = sum(weights * inputs)
+        const prediction = this.computeOnEncryptedData([encryptedInput], {
+          type: 'weightedSum',
+          weights: weights.slice(0, 1)
+        });
+        
+        predictions.push(prediction);
+      }
+      
+      logger.info(`Homomorphic inference completed: ${predictions.length} predictions`);
+      return {
+        predictions,
+        metadata: {
+          inferenceTime: Date.now(),
+          predictionCount: predictions.length,
+          encrypted: true
+        }
+      };
+      
+    } catch (error) {
+      logger.error(`Homomorphic inference failed: ${error.message}`);
+      throw new Error(`Homomorphic inference failed: ${error.message}`);
     }
   }
 

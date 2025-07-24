@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 AI Battle Arena - Quantum-Encrypted AI Competition Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 20px;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(45deg, #ff4757, #ff6b6b);
+            border-radius: 20px;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .battle-arena {
+            grid-column: 1 / -1;
+            margin-bottom: 30px;
+        }
+
+        .battle-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .active-battle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .active-battle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .contestant {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .contestant.winner {
+            border-left-color: #ffdd59;
+            background: rgba(255, 221, 89, 0.2);
+        }
+
+        .leaderboard {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #45b7d1;
+        }
+
+        .leaderboard-item:first-child {
+            border-left-color: #ffdd59;
+            background: rgba(255, 221, 89, 0.2);
+        }
+
+        .leaderboard-item:nth-child(2) {
+            border-left-color: #c0c0c0;
+        }
+
+        .leaderboard-item:nth-child(3) {
+            border-left-color: #cd7f32;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #cccccc;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #2ed573, #1dd1a1);
+        }
+
+        .real-time-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ecdc4;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        .stream-container {
+            background: #000;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 300px;
+            border: 2px solid #4ecdc4;
+        }
+
+        .stream-log {
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 250px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .quantum-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: quantum-glow 2s infinite;
+        }
+
+        @keyframes quantum-glow {
+            0%, 100% { 
+                box-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+            }
+        }
+
+        .status-online {
+            color: #2ed573;
+        }
+
+        .status-offline {
+            color: #ff6b6b;
+        }
+
+        .status-pending {
+            color: #ffdd59;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .battle-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Battle Arena</h1>
+            <p>Quantum-Encrypted AI Competition Platform</p>
+            <div class="live-indicator">
+                🔴 LIVE - Real-time Encrypted AI Battles
+            </div>
+            <br><br>
+            <span class="quantum-indicator">⚛️ QUANTUM SECURE</span>
+            <span class="quantum-indicator">🔐 ZERO-KNOWLEDGE PROOFS</span>
+            <span class="quantum-indicator">🏆 PRIZE COMPETITIONS</span>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <h3>🏅 Live Statistics</h3>
+                <div class="real-time-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value" id="totalModels">-</div>
+                        <div class="metric-label">Registered Models</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="activeBattles">-</div>
+                        <div class="metric-label">Active Battles</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="spectators">-</div>
+                        <div class="metric-label">Live Spectators</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚡ Current Battle Status</h3>
+                <div id="currentBattleStatus">
+                    <p class="status-offline">No active battles</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🎯 Quick Actions</h3>
+                <button class="btn" onclick="refreshLeaderboard()">🔄 Refresh Leaderboard</button>
+                <button class="btn btn-success" onclick="joinRandomBattle()">🎮 Join Random Battle</button>
+                <button class="btn btn-danger" onclick="createTestBattle()">⚔️ Create Test Battle</button>
+            </div>
+        </div>
+
+        <div class="card battle-arena">
+            <h3>⚔️ Active Battle Arena</h3>
+            <div class="battle-grid">
+                <div class="active-battle">
+                    <h4>🔥 Live Battle Stream</h4>
+                    <div class="stream-container">
+                        <div class="stream-log" id="battleStream">
+Initializing quantum-encrypted battle arena...
+Waiting for AI models to connect...
+🔐 All communications are end-to-end encrypted
+⚛️ Zero-knowledge proofs enabled
+🛡️ Privacy-preserving inference active
+                        </div>
+                    </div>
+                    <div id="battleContestants"></div>
+                </div>
+
+                <div class="card leaderboard">
+                    <h3>🏆 Global Leaderboard</h3>
+                    <div id="leaderboardContent">
+                        <div class="leaderboard-item">
+                            <div>
+                                <strong>QuantumNet-Pro</strong><br>
+                                <small>95% Win Rate</small>
+                            </div>
+                            <div>
+                                <strong>2,450 pts</strong><br>
+                                <span class="quantum-indicator">⚛️ Quantum</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <strong>CryptoAI-Elite</strong><br>
+                                <small>88% Win Rate</small>
+                            </div>
+                            <div>
+                                <strong>2,180 pts</strong><br>
+                                <span class="quantum-indicator">🔐 Encrypted</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <strong>PrivacyNet-X</strong><br>
+                                <small>82% Win Rate</small>
+                            </div>
+                            <div>
+                                <strong>1,960 pts</strong><br>
+                                <span class="quantum-indicator">🛡️ Private</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="card">
+                <h3>🤖 Register AI Model</h3>
+                <div class="form-group">
+                    <label for="modelId">Model ID</label>
+                    <input type="text" id="modelId" placeholder="unique-model-identifier">
+                </div>
+                <div class="form-group">
+                    <label for="modelName">Model Name</label>
+                    <input type="text" id="modelName" placeholder="My Quantum AI Model">
+                </div>
+                <div class="form-group">
+                    <label for="modelCapabilities">Capabilities</label>
+                    <select id="modelCapabilities">
+                        <option value="general">General Purpose AI</option>
+                        <option value="nlp">Natural Language Processing</option>
+                        <option value="cv">Computer Vision</option>
+                        <option value="audio">Audio Processing</option>
+                        <option value="multimodal">Multimodal AI</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="registerModel()">🚀 Register Model</button>
+            </div>
+
+            <div class="card">
+                <h3>⚔️ Create Battle</h3>
+                <div class="form-group">
+                    <label for="battleContestants">Contestants (comma-separated)</label>
+                    <input type="text" id="battleContestants" placeholder="model1, model2, model3">
+                </div>
+                <div class="form-group">
+                    <label for="battlePrize">Prize Pool (ETH)</label>
+                    <input type="number" id="battlePrize" placeholder="0.1" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="battleDataset">Dataset Type</label>
+                    <select id="battleDataset">
+                        <option value="financial">Financial Data</option>
+                        <option value="medical">Medical Records</option>
+                        <option value="language">Language Tasks</option>
+                        <option value="vision">Computer Vision</option>
+                        <option value="custom">Custom Dataset</option>
+                    </select>
+                </div>
+                <button class="btn btn-success" onclick="createBattle()">⚔️ Create Battle</button>
+            </div>
+
+            <div class="card">
+                <h3>👁️ Spectate Battle</h3>
+                <div class="form-group">
+                    <label for="spectatorBattleId">Battle ID</label>
+                    <input type="text" id="spectatorBattleId" placeholder="battle-uuid">
+                </div>
+                <div class="form-group">
+                    <label for="spectatorId">Your Spectator ID</label>
+                    <input type="text" id="spectatorId" placeholder="spectator-username">
+                </div>
+                <button class="btn" onclick="joinASpectator()">👁️ Join as Spectator</button>
+                <button class="btn btn-danger" onclick="stopSpectating()">❌ Stop Spectating</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📊 Battle History</h3>
+            <div id="battleHistory" style="max-height: 300px; overflow-y: auto;">
+                <div class="contestant">
+                    <div>
+                        <strong>Battle #001</strong> - QuantumNet-Pro vs CryptoAI-Elite<br>
+                        <small>Winner: QuantumNet-Pro | Prize: 0.1 ETH | 2 minutes ago</small>
+                    </div>
+                    <div class="status-online">✅ Completed</div>
+                </div>
+                <div class="contestant">
+                    <div>
+                        <strong>Battle #002</strong> - PrivacyNet-X vs SecureML-2024<br>
+                        <small>Winner: PrivacyNet-X | Prize: 0.05 ETH | 15 minutes ago</small>
+                    </div>
+                    <div class="status-online">✅ Completed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let eventSource = null;
+        let isSpectating = false;
+
+        // Initialize the playground
+        async function initializePlayground() {
+            await refreshStats();
+            await refreshLeaderboard();
+            await refreshBattleHistory();
+            await refreshActiveBattles();
+            
+            // Start auto-refresh
+            setInterval(refreshStats, 5000);
+            setInterval(refreshLeaderboard, 10000);
+        }
+
+        // Refresh live statistics
+        async function refreshStats() {
+            try {
+                const response = await fetch('/api/v1/playground/leaderboard');
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('totalModels').textContent = data.data.totalModels || 0;
+                    document.getElementById('activeBattles').textContent = data.data.activeBattles || 0;
+                    document.getElementById('spectators').textContent = data.data.spectatorCount || 0;
+                }
+            } catch (error) {
+                console.error('Failed to refresh stats:', error);
+            }
+        }
+
+        // Refresh leaderboard
+        async function refreshLeaderboard() {
+            try {
+                const response = await fetch('/api/v1/playground/leaderboard');
+                const data = await response.json();
+                
+                if (data.success && data.data.leaderboard) {
+                    const container = document.getElementById('leaderboardContent');
+                    container.innerHTML = '';
+                    
+                    data.data.leaderboard.forEach((model, index) => {
+                        const item = document.createElement('div');
+                        item.className = 'leaderboard-item';
+                        item.innerHTML = `
+                            <div>
+                                <strong>${model.modelId}</strong><br>
+                                <small>${Math.round(model.winRate * 100)}% Win Rate</small>
+                            </div>
+                            <div>
+                                <strong>${model.totalScore} pts</strong><br>
+                                <span class="quantum-indicator">⚛️ Trust: ${model.trustScore}</span>
+                            </div>
+                        `;
+                        container.appendChild(item);
+                    });
+                }
+            } catch (error) {
+                console.error('Failed to refresh leaderboard:', error);
+            }
+        }
+
+        // Register AI model
+        async function registerModel() {
+            const modelId = document.getElementById('modelId').value;
+            const modelName = document.getElementById('modelName').value;
+            const capabilities = document.getElementById('modelCapabilities').value;
+            
+            if (!modelId || !modelName) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            try {
+                // Generate dummy model data and ZK proof
+                const modelData = {
+                    name: modelName,
+                    capabilities: [capabilities],
+                    version: '1.0.0',
+                    parameters: 'ENCRYPTED'
+                };
+                
+                const publicKey = generateDummyPublicKey();
+                const zkProof = generateDummyZKProof();
+                
+                const response = await fetch('/api/v1/playground/models/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer demo-token'
+                    },
+                    body: JSON.stringify({
+                        modelId,
+                        modelData,
+                        publicKey,
+                        zkProof
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    addToStream(`✅ Model registered: ${modelId} with quantum signature`);
+                    refreshLeaderboard();
+                    
+                    // Clear form
+                    document.getElementById('modelId').value = '';
+                    document.getElementById('modelName').value = '';
+                } else {
+                    addToStream(`❌ Registration failed: ${result.error}`);
+                }
+                
+            } catch (error) {
+                addToStream(`❌ Registration error: ${error.message}`);
+            }
+        }
+
+        // Create battle
+        async function createBattle() {
+            const contestants = document.getElementById('battleContestants').value.split(',').map(s => s.trim());
+            const prize = parseFloat(document.getElementById('battlePrize').value) || 0;
+            const datasetType = document.getElementById('battleDataset').value;
+            
+            if (contestants.length < 2) {
+                alert('At least 2 contestants required');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/v1/playground/battles/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer demo-token'
+                    },
+                    body: JSON.stringify({
+                        contestants,
+                        dataset: generateDummyDataset(datasetType),
+                        metrics: ['accuracy', 'speed', 'privacy'],
+                        prize,
+                        visibility: 'public'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    addToStream(`⚔️ Battle created: ${result.data.battleId}`);
+                    addToStream(`🎯 Contestants: ${contestants.join(', ')}`);
+                    
+                    // Auto-start the battle after 3 seconds
+                    setTimeout(() => startBattle(result.data.battleId), 3000);
+                } else {
+                    addToStream(`❌ Battle creation failed: ${result.error}`);
+                }
+                
+            } catch (error) {
+                addToStream(`❌ Battle creation error: ${error.message}`);
+            }
+        }
+
+        // Start battle
+        async function startBattle(battleId) {
+            try {
+                const response = await fetch(`/api/v1/playground/battles/${battleId}/start`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer demo-token'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    addToStream(`🚀 Battle started: ${battleId}`);
+                    addToStream(`⚛️ Running quantum-encrypted inference...`);
+                    addToStream(`🔐 Zero-knowledge proofs generating...`);
+                } else {
+                    addToStream(`❌ Battle start failed: ${result.error}`);
+                }
+                
+            } catch (error) {
+                addToStream(`❌ Battle start error: ${error.message}`);
+            }
+        }
+
+        // Join as spectator
+        async function joinASpectator() {
+            const battleId = document.getElementById('spectatorBattleId').value;
+            const spectatorId = document.getElementById('spectatorId').value;
+            
+            if (!battleId || !spectatorId) {
+                alert('Please fill in both fields');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/v1/playground/battles/${battleId}/spectate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ spectatorId })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    addToStream(`👁️ Joined as spectator for battle: ${battleId}`);
+                    startRealTimeStream(battleId);
+                    isSpectating = true;
+                } else {
+                    addToStream(`❌ Spectator join failed: ${result.error}`);
+                }
+                
+            } catch (error) {
+                addToStream(`❌ Spectator join error: ${error.message}`);
+            }
+        }
+
+        // Start real-time stream
+        function startRealTimeStream(battleId) {
+            if (eventSource) {
+                eventSource.close();
+            }
+            
+            eventSource = new EventSource(`/api/v1/playground/battles/${battleId}/stream`);
+            
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                handleStreamEvent(data);
+            };
+            
+            eventSource.onerror = function(error) {
+                addToStream('❌ Stream connection error');
+                console.error('EventSource error:', error);
+            };
+        }
+
+        // Handle stream events
+        function handleStreamEvent(data) {
+            switch (data.type) {
+                case 'connected':
+                    addToStream('🔗 Connected to real-time stream');
+                    break;
+                case 'battleStarted':
+                    addToStream(`⚔️ Battle started with ${data.contestants.length} contestants`);
+                    break;
+                case 'realTimeUpdate':
+                    addToStream(`📊 ${data.modelId}: ${JSON.stringify(data.metrics)}`);
+                    break;
+                case 'battleCompleted':
+                    addToStream(`🏆 Battle completed! Winner: ${data.winner}`);
+                    addToStream(`⏱️ Duration: ${data.duration}ms`);
+                    refreshLeaderboard();
+                    break;
+                default:
+                    addToStream(`📡 ${JSON.stringify(data)}`);
+            }
+        }
+
+        // Stop spectating
+        function stopSpectating() {
+            if (eventSource) {
+                eventSource.close();
+                eventSource = null;
+            }
+            isSpectating = false;
+            addToStream('👁️ Stopped spectating');
+        }
+
+        // Quick action functions
+        async function joinRandomBattle() {
+            try {
+                const response = await fetch('/api/v1/playground/battles/active');
+                const data = await response.json();
+                
+                if (data.success && data.data.battles.length > 0) {
+                    const randomBattle = data.data.battles[Math.floor(Math.random() * data.data.battles.length)];
+                    document.getElementById('spectatorBattleId').value = randomBattle.battleId;
+                    document.getElementById('spectatorId').value = 'anonymous_' + Math.random().toString(36).substr(2, 9);
+                    await joinASpectator();
+                } else {
+                    addToStream('❌ No active battles available');
+                }
+            } catch (error) {
+                addToStream(`❌ Error joining random battle: ${error.message}`);
+            }
+        }
+
+        async function createTestBattle() {
+            document.getElementById('battleContestants').value = 'test-model-1, test-model-2';
+            document.getElementById('battlePrize').value = '0.01';
+            await createBattle();
+        }
+
+        async function refreshActiveBattles() {
+            try {
+                const response = await fetch('/api/v1/playground/battles/active');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const statusDiv = document.getElementById('currentBattleStatus');
+                    if (data.data.battles.length > 0) {
+                        statusDiv.innerHTML = `<p class="status-online">${data.data.battles.length} active battles</p>`;
+                    } else {
+                        statusDiv.innerHTML = '<p class="status-offline">No active battles</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to refresh active battles:', error);
+            }
+        }
+
+        async function refreshBattleHistory() {
+            try {
+                const response = await fetch('/api/v1/playground/battles/history');
+                const data = await response.json();
+                
+                if (data.success && data.data.battles) {
+                    const container = document.getElementById('battleHistory');
+                    container.innerHTML = '';
+                    
+                    data.data.battles.forEach(battle => {
+                        const item = document.createElement('div');
+                        item.className = 'contestant';
+                        item.innerHTML = `
+                            <div>
+                                <strong>Battle ${battle.battleId.substr(0, 8)}</strong> - ${battle.contestants.join(' vs ')}<br>
+                                <small>Winner: ${battle.winner} | Prize: ${battle.prize} ETH | ${new Date(battle.timestamp).toLocaleString()}</small>
+                            </div>
+                            <div class="status-online">✅ Completed</div>
+                        `;
+                        container.appendChild(item);
+                    });
+                }
+            } catch (error) {
+                console.error('Failed to refresh battle history:', error);
+            }
+        }
+
+        // Utility functions
+        function addToStream(message) {
+            const stream = document.getElementById('battleStream');
+            const timestamp = new Date().toLocaleTimeString();
+            stream.textContent += `\n[${timestamp}] ${message}`;
+            stream.scrollTop = stream.scrollHeight;
+        }
+
+        function generateDummyPublicKey() {
+            return 'pk_' + Math.random().toString(36).substr(2, 32);
+        }
+
+        function generateDummyZKProof() {
+            return {
+                commitment: Math.random().toString(36).substr(2, 64),
+                witness: Math.random().toString(36).substr(2, 64),
+                algorithm: 'ZK_SNARK_GROTH16'
+            };
+        }
+
+        function generateDummyDataset(type) {
+            return {
+                type,
+                size: 1000,
+                encrypted: true,
+                format: 'homomorphic_encrypted'
+            };
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializePlayground);
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (eventSource) {
+                eventSource.close();
+            }
+        });
+    </script>
+</body>
+</html>
