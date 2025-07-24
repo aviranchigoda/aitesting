@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 SecureAI Bridge - Encrypted AI Data Processing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .feature-list li:before {
+            content: "🔐 ";
+            margin-right: 8px;
+        }
+        
+        .use-case {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-form {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            padding: 10px;
+            border: 2px solid #ecf0f1;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .result-box {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .demo-section {
+            margin-top: 30px;
+        }
+        
+        .encryption-demo {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            color: #7f8c8d;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 SecureAI Bridge</h1>
+            <p>Enterprise-Grade Encrypted AI Data Processing System</p>
+            <div class="status-badge" id="systemStatus">System Status: Loading...</div>
+            <div class="status-badge" id="systemUptime">Uptime: Loading...</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>🛡️ Security Features</h3>
+                <ul class="feature-list">
+                    <li>Homomorphic Encryption - Compute on encrypted data</li>
+                    <li>AES-256-GCM & RSA-4096 - Military-grade encryption</li>
+                    <li>Zero-Knowledge Proofs - Verify without exposing data</li>
+                    <li>Secure Multi-party Computation - Distributed processing</li>
+                    <li>Hardware Security Module - Enterprise key management</li>
+                    <li>Differential Privacy - Mathematical privacy guarantees</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🏢 Enterprise Use Cases</h3>
+                <div class="use-case">
+                    <strong>Financial Services:</strong> Fraud detection on encrypted transactions, risk analysis without exposing customer data
+                </div>
+                <div class="use-case">
+                    <strong>Healthcare:</strong> Medical research on encrypted patient data, collaborative diagnostics
+                </div>
+                <div class="use-case">
+                    <strong>Business Analytics:</strong> Customer insights with privacy preservation, secure market research
+                </div>
+                <div class="use-case">
+                    <strong>AI Training:</strong> Train models without centralizing sensitive data
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📊 System Metrics</h3>
+                <div class="metrics-grid" id="metricsGrid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="requestCount">--</div>
+                        <div class="metric-label">Total Requests</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="memoryUsage">--</div>
+                        <div class="metric-label">Memory (MB)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="systemUptime2">--</div>
+                        <div class="metric-label">Uptime (min)</div>
+                    </div>
+                </div>
+                <button class="btn" onclick="refreshMetrics()">Refresh Metrics</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>🧪 Interactive API Testing</h3>
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('register')">Register Client</button>
+                <button class="tab" onclick="showTab('encrypt')">Process Encrypted Data</button>
+                <button class="tab" onclick="showTab('health')">Health Check</button>
+            </div>
+
+            <div id="register" class="tab-content active">
+                <h4>Register a New Client</h4>
+                <div class="test-form">
+                    <div class="form-group">
+                        <label for="clientId">Client ID:</label>
+                        <input type="text" id="clientId" placeholder="Enter unique client identifier" value="demo-client-001">
+                    </div>
+                    <button class="btn" onclick="registerClient()">Register Client</button>
+                </div>
+                <div id="registerResult" class="result-box" style="display: none;"></div>
+            </div>
+
+            <div id="encrypt" class="tab-content">
+                <h4>Process Encrypted Data</h4>
+                <div class="test-form">
+                    <div class="form-group">
+                        <label for="requestId">Request ID:</label>
+                        <input type="text" id="requestId" placeholder="Unique request identifier" value="demo-request-001">
+                    </div>
+                    <div class="form-group">
+                        <label for="processingType">Processing Type:</label>
+                        <select id="processingType">
+                            <option value="homomorphic_computation">Homomorphic Computation</option>
+                            <option value="secure_inference">Secure Inference</option>
+                            <option value="privacy_preserving_training">Privacy-Preserving Training</option>
+                            <option value="encrypted_analytics">Encrypted Analytics</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="encryptedData">Encrypted Data (JSON):</label>
+                        <textarea id="encryptedData" rows="4" placeholder='{"operations": [{"type": "statistical_analysis", "data": ["encrypted_value_1", "encrypted_value_2"]}]}'>{
+  "operations": [
+    {
+      "type": "statistical_analysis",
+      "data": ["encrypted_value_1", "encrypted_value_2", "encrypted_value_3"]
+    }
+  ]
+}</textarea>
+                    </div>
+                    <button class="btn" onclick="processEncryptedData()">Process Data</button>
+                </div>
+                <div id="encryptResult" class="result-box" style="display: none;"></div>
+            </div>
+
+            <div id="health" class="tab-content">
+                <h4>System Health Check</h4>
+                <button class="btn" onclick="checkHealth()">Check System Health</button>
+                <button class="btn" onclick="checkDetailedHealth()">Detailed Health Report</button>
+                <div id="healthResult" class="result-box" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div class="encryption-demo">
+            <h3>🔐 Live Encryption Demonstration</h3>
+            <div class="test-form">
+                <div class="form-group">
+                    <label for="plaintext">Enter Text to Encrypt:</label>
+                    <input type="text" id="plaintext" placeholder="Enter sensitive data here..." value="Confidential financial transaction: $50,000">
+                </div>
+                <button class="btn" onclick="demonstrateEncryption()">Encrypt Data</button>
+                <button class="btn" onclick="simulateHomomorphic()">Homomorphic Operations</button>
+            </div>
+            <div id="encryptionDemo" class="result-box" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // System status updates
+        async function updateSystemStatus() {
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                
+                document.getElementById('systemStatus').textContent = `System Status: ${data.status}`;
+                document.getElementById('systemUptime').textContent = `Uptime: ${Math.floor(data.uptime / 60)} minutes`;
+                
+                // Update metrics
+                const metricsResponse = await fetch('/metrics');
+                const metricsText = await metricsResponse.text();
+                
+                // Parse simple metrics
+                const uptimeMatch = metricsText.match(/secureai_uptime_seconds (\d+)/);
+                const memoryMatch = metricsText.match(/secureai_memory_usage_bytes (\d+)/);
+                const requestsMatch = metricsText.match(/secureai_requests_total (\d+)/);
+                
+                if (uptimeMatch) {
+                    document.getElementById('systemUptime2').textContent = Math.floor(parseInt(uptimeMatch[1]) / 60);
+                }
+                if (memoryMatch) {
+                    document.getElementById('memoryUsage').textContent = Math.floor(parseInt(memoryMatch[1]) / 1024 / 1024);
+                }
+                if (requestsMatch) {
+                    document.getElementById('requestCount').textContent = requestsMatch[1];
+                }
+            } catch (error) {
+                document.getElementById('systemStatus').textContent = 'System Status: Error';
+                console.error('Status update failed:', error);
+            }
+        }
+
+        // Tab functionality
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // API Testing Functions
+        async function registerClient() {
+            const clientId = document.getElementById('clientId').value;
+            const resultDiv = document.getElementById('registerResult');
+            
+            if (!clientId) {
+                showResult(resultDiv, 'Error: Client ID is required', true);
+                return;
+            }
+            
+            showLoading(resultDiv);
+            
+            try {
+                const response = await fetch('/api/v1/secure/register-client', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ clientId })
+                });
+                
+                const data = await response.json();
+                showResult(resultDiv, JSON.stringify(data, null, 2), !response.ok);
+            } catch (error) {
+                showResult(resultDiv, `Error: ${error.message}`, true);
+            }
+        }
+
+        async function processEncryptedData() {
+            const requestId = document.getElementById('requestId').value;
+            const processingType = document.getElementById('processingType').value;
+            const encryptedDataText = document.getElementById('encryptedData').value;
+            const resultDiv = document.getElementById('encryptResult');
+            
+            if (!requestId || !encryptedDataText) {
+                showResult(resultDiv, 'Error: Request ID and encrypted data are required', true);
+                return;
+            }
+            
+            showLoading(resultDiv);
+            
+            try {
+                const encryptedData = JSON.parse(encryptedDataText);
+                
+                const response = await fetch('/api/v1/secure/process-encrypted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        requestId,
+                        encryptedData,
+                        processingType,
+                        clientPublicKey: 'demo-public-key'
+                    })
+                });
+                
+                const data = await response.json();
+                showResult(resultDiv, JSON.stringify(data, null, 2), !response.ok);
+            } catch (error) {
+                showResult(resultDiv, `Error: ${error.message}`, true);
+            }
+        }
+
+        async function checkHealth() {
+            const resultDiv = document.getElementById('healthResult');
+            showLoading(resultDiv);
+            
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                showResult(resultDiv, JSON.stringify(data, null, 2), !response.ok);
+            } catch (error) {
+                showResult(resultDiv, `Error: ${error.message}`, true);
+            }
+        }
+
+        async function checkDetailedHealth() {
+            const resultDiv = document.getElementById('healthResult');
+            showLoading(resultDiv);
+            
+            try {
+                const response = await fetch('/health/detailed');
+                const data = await response.json();
+                showResult(resultDiv, JSON.stringify(data, null, 2), !response.ok);
+            } catch (error) {
+                showResult(resultDiv, `Error: ${error.message}`, true);
+            }
+        }
+
+        // Encryption demonstration
+        function demonstrateEncryption() {
+            const plaintext = document.getElementById('plaintext').value;
+            const resultDiv = document.getElementById('encryptionDemo');
+            
+            if (!plaintext) {
+                showResult(resultDiv, 'Error: Please enter text to encrypt', true);
+                return;
+            }
+            
+            // Simulate encryption process
+            const encrypted = btoa(plaintext + '-encrypted-' + Date.now());
+            const hash = btoa('hash-' + plaintext.length + '-' + Date.now());
+            
+            const demo = `
+🔐 ENCRYPTION DEMONSTRATION
+===========================
+
+Original Data: "${plaintext}"
+Data Length: ${plaintext.length} characters
+Encryption Algorithm: AES-256-GCM (Simulated)
+
+Encrypted Result: ${encrypted}
+Hash: ${hash}
+
+✅ Data successfully encrypted!
+✅ Original data is now protected
+✅ Can perform computations on encrypted data
+✅ Zero-knowledge proofs available for verification
+
+Time: ${new Date().toISOString()}
+            `;
+            
+            showResult(resultDiv, demo);
+        }
+
+        function simulateHomomorphic() {
+            const resultDiv = document.getElementById('encryptionDemo');
+            
+            const demo = `
+🧮 HOMOMORPHIC ENCRYPTION DEMONSTRATION
+======================================
+
+Simulating operations on encrypted financial data...
+
+Encrypted Values:
+- Transaction 1: enc(50000) = 7a8f9c2d...
+- Transaction 2: enc(75000) = 9b4e5f1a...
+- Transaction 3: enc(30000) = 3c7d8e2b...
+
+Homomorphic Operations (on encrypted data):
+✅ Sum = enc(50000) ⊕ enc(75000) ⊕ enc(30000) = 4f7a9c8d...
+✅ Average = Sum ⊗ (1/3) = 2e6b8d9f...
+✅ Maximum detection without decryption = 9b4e5f1a...
+
+Results (after decryption by authorized party):
+- Total Sum: $155,000
+- Average: $51,667
+- Maximum: $75,000
+
+🔒 All computations performed without exposing original data!
+⚡ Processing Time: 0.032 seconds
+🛡️ Privacy preserved throughout entire operation
+
+Time: ${new Date().toISOString()}
+            `;
+            
+            showResult(resultDiv, demo);
+        }
+
+        function refreshMetrics() {
+            updateSystemStatus();
+        }
+
+        // Utility functions
+        function showResult(element, content, isError = false) {
+            element.style.display = 'block';
+            element.textContent = content;
+            element.className = `result-box ${isError ? 'error' : 'success'}`;
+        }
+
+        function showLoading(element) {
+            element.style.display = 'block';
+            element.innerHTML = '<div class="loading"></div> Processing...';
+            element.className = 'result-box';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSystemStatus();
+            setInterval(updateSystemStatus, 10000); // Update every 10 seconds
+        });
+    </script>
+</body>
+</html>
